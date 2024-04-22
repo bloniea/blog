@@ -1,0 +1,136 @@
+@import './variable.styl'
+html {
+  font-size 16px
+  cursor $my-cursor-default
+}
+@media screen and (max-width 768px) {
+  html {
+    font-size 14px
+  }
+}
+@media screen and (max-width 400px) {
+  html {
+    font-size 12px
+  }
+}
+html, body {
+  width 100%
+  height 100%
+  padding 0
+  margin 0
+  color #4b4b4b
+  font-family 'Comic Sans MS', cursive, sans-serif
+  ::selection {
+    background-color $baseColor
+    color #fff
+  }
+  ::-webkit-selection {
+    background-color $baseColor
+    color #fff
+  }
+  ::-moz-selection {
+    background-color $baseColor
+    color #fff
+  }
+}
+#app {
+  z-index 1
+  position relative
+  width 100%
+  height 100%
+}
+#bg {
+  top 0
+  bottom 0
+  left 0
+  right 0
+  width 100%
+  height 100%
+  z-index 0
+  background rgba(206, 133, 226, 0.35)
+}
+#nprogress .bar {
+  background $baseColor !important // 自定义颜色
+}
+/* 定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸 */
+::-webkit-scrollbar {
+  width 6px
+  height 6px
+  // background-color #f5f5f5
+}
+/* 定义滑块，内阴影及圆角 */
+::-webkit-scrollbar-thumb {
+  /* width: 10px; */
+  height 10px
+  border-radius 10px
+  background-image linear-gradient(#B854D4, #e66465)
+}
+.shadow {
+  box-shadow 6px 6px 5px rgba(0, 0, 0, 0.12)
+}
+.bg-shadow {
+  box-shadow 6px 6px 5px rgba(0, 0, 0, 0.12)
+  transition all 0.2s
+  @media screen and (min-width 769px) {
+    &:hover {
+      transform translateY(-5px)
+      box-shadow 8px 8px 5px rgba(0, 0, 0, 0.2)
+    }
+  }
+}
+.special {
+  color $baseColor
+}
+a {
+  color $baseColor
+  text-decoration none
+}
+.el-button {
+  &:hover {
+    color $baseColor
+    // border-color #fff
+  }
+  &:active {
+    color $baseColor
+    border-color $baseColor
+  }
+  &:focus {
+    color $baseColor
+    // border-color $baseColor
+  }
+}
+.allTtool {
+  h3 {
+    border-bottom 2px solid $baseColor
+    span {
+      color $baseColor
+    }
+  }
+  padding 10px
+  .el-row {
+    margin 10px 0
+  }
+}
+.el-loading-spinner .path {
+  stroke #fff
+  stroke-width 4px
+}
+.text_popup {
+  animation textPopUp 1s
+  color #740e72
+  user-select none
+  white-space nowrap
+  position absolute
+  z-index 999
+}
+@keyframes textPopUp {
+  0%, 100% {
+    opacity 0
+  }
+  10% {
+    opacity 1
+  }
+  100% {
+    transform translateY(-50px)
+  }
+}
