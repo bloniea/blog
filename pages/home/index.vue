@@ -182,7 +182,7 @@ useHead({ title: "可愛くなりたいbloniea" })
 const articlesData = reactive({
   articles: {} as any,
   req: {
-    pages: 2,
+    pages: 10,
     pageNumber: 1,
   },
   total: 0,
