@@ -11,8 +11,8 @@
   <article
     v-else
     v-for="article in articles"
-    :key="article._id"
-    @click="toArticleDetail(article._id)"
+    :key="article.article_id"
+    @click="toArticleDetail(article.article_id)"
     class="bg-shadow"
     data-aos="flip-left"
     data-aos-easing="ease-out-cubic"
@@ -57,38 +57,34 @@
         </div> -->
         <div
           class="category"
-          @click.stop="
-            toCategory(article.category._id, article.category.cat_name)
-          "
+          @click.stop="toCategory(article.category_id, article.categorytitle)"
         >
           <span class="iconfont iconfenlei"></span>
-          {{ article.category.cat_name }}
+          {{ article.categorytitle }}
         </div>
       </div>
     </div>
   </article>
 </template>
 
-<script setup>
-import { beforeArticle, formatDate } from '@/comm/function.js'
-import { onMounted, ref } from '@vue/runtime-core'
-import config from '@/config'
-import { useRouter } from 'vue-router'
+<script setup lang="ts">
+import { onMounted, ref } from "@vue/runtime-core"
+
+import { useRouter } from "vue-router"
 
 const props = defineProps({
   articles: Array,
 })
-onMounted(() => {
-  const articles = props.articles
-})
-const emit = defineEmits(['toArticleDetail'])
-const toArticleDetail = (id) => {
-  emit('toArticleDetail', id)
+const articles = props.articles as ArticleData[]
+onMounted(() => {})
+const emit = defineEmits(["toArticleDetail"])
+const toArticleDetail = (id: number) => {
+  emit("toArticleDetail", id)
 }
 const router = useRouter()
-const toCategory = (id, name) => {
+const toCategory = (id: number, name: string) => {
   router.push({
-    name: 'CategoryDetail',
+    name: "CategoryDetail",
     params: { id: id },
     query: { name: name },
   })

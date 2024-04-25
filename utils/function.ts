@@ -99,3 +99,15 @@ export const toAuth = (type) => {
     window.location.href = apiUrl + params
   }
 }
+
+export interface ArticleData {
+  article_id: number
+  title: string
+  category_id: number
+  content: string
+  img_url: string
+  img_source: string
+  created_at: string | number
+  categorytitle: string
+  categoryimgurl: string
+}

@@ -4,10 +4,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style lang="styl" scoped>
-@import './index.styl';
+<style lang="stylus" scoped>
+@import './index.styl'
 </style>

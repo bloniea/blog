@@ -1,5 +1,6 @@
 <template>
-  <div class="tools">
+  <Loading v-if="loading" />
+  <div class="tools" v-else>
     <MyContainer>
       <router-view v-if="$route.meta.tool" class="allTtool"></router-view>
 
@@ -10,7 +11,7 @@
             <div
               class="tool-list bg-shadow"
               v-for="list in config.tools"
-              :key="list"
+              :key="list.id"
               data-aos="flip-left"
               data-aos-easing="ease-out-cubic"
               data-aos-duration="2000"
@@ -32,16 +33,24 @@
   </div>
 </template>
 
-<script setup>
-import MyContainer from '@/components/MyContainer/index.vue'
-import { useRouter } from 'vue-router'
-import config from '@/config.js'
-
+<script setup lang="ts">
 const router = useRouter()
-
-const toPath = (n) => {
-  router.push({ name: n })
+useHead({ title: "实用工具" })
+const toPath = (n: string) => {
+  router.push({ path: n })
 }
+const loading = ref<boolean>(true)
+
+;(function () {
+  let timerId: NodeJS.Timeout
+  let timerHandle: number
+
+  timerId = setTimeout(() => {
+    clearTimeout(timerHandle)
+    loading.value = false
+  }, 200)
+  timerHandle = timerId as unknown as number
+})()
 </script>
 
 <style lang="stylus" scoped>

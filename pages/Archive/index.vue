@@ -6,30 +6,30 @@
       :articles="article.list"
       @toArticleDetail="toArticleDetail"
     ></ArticleList>
-    <Pagination
+    <!-- <Pagination
       :pagesize="article.req.pagesize"
       :pagenum="article.req.pagenum"
+      :total="article.total"
+      @changePage="changePage"
+    ></Pagination> -->
+
+    <Pagination
+      :pages="article.req.pages"
+      :pageNumber="article.req.pageNumber"
       :total="article.total"
       @changePage="changePage"
     ></Pagination>
   </MyContainer>
 </template>
 
-<script setup>
-import MyContainer from '@/components/MyContainer/index.vue'
-import Loading from '@/components/Loading/index.vue'
-import ArticleList from '@/components/ArticleList/index.vue'
-import Pagination from '@/components/Pagination/index.vue'
-import { reactive, ref } from '@vue/reactivity'
-import { getArticlesApi } from '../../comm/fetch'
-import { useRouter } from 'vue-router'
+<script setup lang="ts">
 const router = useRouter()
-const loading = ref(false)
-
+const loading = ref<boolean>(false)
+useHead({ title: "文章归档" })
 const article = reactive({
   req: {
-    pagesize: 10,
-    pagenum: 1,
+    pages: 10,
+    pageNumber: 1,
   },
   list: [],
   total: 0,
@@ -38,19 +38,19 @@ const article = reactive({
 const getArticles = async () => {
   loading.value = true
   const res = await getArticlesApi(article.req)
-  if (res.status === 200 && res.ok) {
+  if (res && res.success === 1) {
     loading.value = false
-    article.list = res.data.data
-    article.total = res.data.total
+    article.list = res.data.result
+    article.total = Number(res.data.total)
   }
 }
 getArticles()
 
-const toArticleDetail = (id) => {
-  router.push({ name: 'ArticleDetail', params: { id: id } })
+const toArticleDetail = (id: number) => {
+  router.push({ path: "/article", query: { id: id } })
 }
-const changePage = (page) => {
-  article.req.pagenum = page
+const changePage = (page: number) => {
+  article.req.pageNumber = page
   getArticles()
 }
 </script>
@@ -58,5 +58,6 @@ const changePage = (page) => {
 <style lang="stylus" scoped>
 .my-container {
   padding 10px
+
 }
 </style>

@@ -1,38 +1,31 @@
 <template>
-  <div
-    class="md-to-html"
-    v-html="data.nHtml"
-  >
-
-  </div>
+  <div class="md-to-html" v-html="mdToHtml(props.html)"></div>
 </template>
 
-<script setup>
-import { marked } from 'marked'
-import hljs from 'highlight.js'
-import { watch, ref, reactive } from '@vue/runtime-core';
+<script setup lang="ts">
+import { marked } from "marked"
+import hljs from "highlight.js"
+import "highlight.js/styles/github.css"
+import javascript from "highlight.js/lib/languages/javascript"
+
 const props = defineProps({
-  html: String
+  html: {
+    type: String,
+    default: "",
+  },
 })
-const data = reactive({
-  nHtml: String
-})
-const mdToHtml = (html) => {
-  return marked.parse(props.html, {
-    renderer: new marked.Renderer(),
-    highlight: function (code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-      return hljs.highlight(code, { language }).value;
-    },
-    langPrefix: 'hljs language-', // highlight.js css expects a top-level 'hljs' class.
-  })
+hljs.registerLanguage("javascript", javascript)
+const renderer = new marked.Renderer()
+renderer.code = function (code: string, language: string) {
+  const validLanguage = hljs.getLanguage(language) ? language : "plaintext"
+  return `<pre><code class="hljs ${validLanguage}">${
+    hljs.highlight(validLanguage, code).value
+  }</code></pre>`
 }
-data.nHtml = mdToHtml(props.html)
-
-watch(() => props.html,
-  (html) => data.nHtml = mdToHtml(html))
-
-
+marked.setOptions({ renderer })
+const mdToHtml = (markdown: string) => {
+  return marked(markdown)
+}
 </script>
 
 <style lang="stylus" scoped>

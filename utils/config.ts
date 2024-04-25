@@ -52,21 +52,28 @@ export const config = {
   tools: [
     {
       img_url: "https://images.bloniea.com/images1/1000-2.jpg",
-      router_name: "Reg",
+      router_name: "tool/reg",
       title: "正则表达式",
       subtitle: "在线测试正则表达式",
+      id: 1,
     },
     {
       img_url: "https://images.bloniea.com/images1/1000-4.jpg",
-      router_name: "Qrcode",
+      router_name: "tool/qrcode",
       title: "二维码生成",
       subtitle: "在线生成二维码",
+      id: 2,
     },
     {
       img_url: "https://images.bloniea.com/images1/1000-6.jpg",
-      router_name: "Ico",
+      router_name: "tool/ico",
       title: "图片转ico格式",
       subtitle: "在线图片转换ico格式",
+      id: 3,
     },
   ],
+  api: "https://blog.api.bloniea.com/open/v1/",
+  algoliaApid: "NYDGZLWU8E",
+  algoliaApiKey: "a23d7155175ea1f03f65d39e3fa8be8a",
+  algoliaIndexName: "myblog",
 }

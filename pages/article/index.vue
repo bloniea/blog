@@ -54,7 +54,7 @@
         </div>
       </article>
     </MyContainer>
-    <div class="star">
+    <!-- <div class="star">
       <i
         class="iconfont iconstarton stared"
         title="取消收藏"
@@ -62,7 +62,7 @@
         @click="delStar"
       ></i>
       <i class="iconfont iconstaroff" title="收藏" v-else @click="star"></i>
-    </div>
+    </div> -->
 
     <!-- <Comment
       @saveComment="saveComment"
@@ -72,6 +72,7 @@
       :btnLoading="btnLoading"
       :addLoading="addLoading"
     ></Comment> -->
+    <Gitalk></Gitalk>
   </div>
 </template>
 
@@ -103,16 +104,7 @@ const data = reactive({
   id: route.query.id as string | number,
 })
 // 根据id获取文章详情
-interface ArticleData {
-  article_id: number
-  title: string
-  category_id: number
-  content: string
-  img_url: string
-  img_source: string
-  created_at: string | number
-  categorytitle: string
-}
+
 const getArticleDetail = async (id: string | number) => {
   loading.value = true
   // 路由传过来的id
@@ -120,130 +112,57 @@ const getArticleDetail = async (id: string | number) => {
   if (res && res.success === 1) {
     data.article = res.data as ArticleData
     loading.value = false
-    console.log(data.article)
+    useHead({
+      title: res.data.title,
+    })
     // nextTick(() => {
     //   getComments(id)
     // })
     // if (loginStatus.value) getIsStar()
   } else {
-    // router.push({ name: "NotFound" })
+    // router.push("/404")
   }
 }
-
 getArticleDetail(data.id)
-// 获取评论
-const commentReq = reactive({
-  pagenum: 1,
-  pagesize: 10,
-  orderBy: -1,
-})
-
-// 评论的数量
-const commentTatol = ref(0)
-// 获取评论
-
-const getComments = async (id) => {
-  const loadingInstance = ElLoading.service({
-    target: ".comments",
-    lock: true,
-    text: "Loading",
-    background: "rgba(0, 0, 0, 0.7)",
-  })
-  const res = await getCommentsApi(id, commentReq)
-  if (res.status === 200 && res.ok) {
-    data.comments = res.data.data
-    commentTatol.value = res.data.total
-  }
-  loadingInstance.close()
-}
-// 加载评论
-const addLoading = ref(false)
-const getAddComments = async () => {
-  addLoading.value = true
-  const res = await getCommentsApi(data.id, commentReq)
-  if (res.status === 200 && res.ok) {
-    addLoading.value = false
-    const resData = res.data.data
-    data.comments = [...data.comments, ...res.data.data]
-    commentTatol.value = res.data.total
-  }
-}
-const loadAdd = () => {
-  commentReq.pagenum++
-  getAddComments()
-}
-
-// const getLabels = (labels) => {
-//   const newV = labels.slice(0, 2)
-//   const l = newV.join(' ')
-//   return l
-// }
-const btnLoading = ref(false)
-// 提交评论
-const saveComment = async (val) => {
-  const req = {
-    article_id: data.article._id,
-    user_id: user.value._id,
-    content: val.content,
-  }
-
-  if (val.to_comment_id) req.to_comment_id = val.to_comment_id
-  btnLoading.value = true
-  const res = await addCommentApi(req)
-  if (res.status === 200 && res.ok) {
-    btnLoading.value = false
-    ElMessage.success("评论成功")
-    store.commit("setCommentIsNull", true)
-    if (data.comments.length == commentTatol.value) {
-      // data.comments.push(res.data.data)
-      data.comments.unshift(res.data.data)
-      commentTatol.value++
-    }
-  } else {
-    btnLoading.value = false
-    ElMessage.error("提交超时")
-  }
-}
 
 // 是否已收藏
-const isStar = ref(false)
-const getIsStar = async () => {
-  const res = await getIsStarApi(data.article._id)
-  if (res.status === 200 && res.ok) {
-    isStar.value = true
-  }
-}
+// const isStar = ref(false)
+// const getIsStar = async () => {
+//   const res = await getIsStarApi(data.article._id)
+//   if (res.status === 200 && res.ok) {
+//     isStar.value = true
+//   }
+// }
 //收藏
-const star = async () => {
-  if (loginStatus.value) {
-    const req = {
-      user_id: user.value.user_id,
-      article_id: data.article._id,
-    }
-    const res = await addStarApi(req)
-    if (res.status === 200 && res.ok) {
-      ElMessage.success("收藏成功")
-      isStar.value = true
-    }
-  } else {
-    store.commit("setIsShowLogin", true)
-    ElMessage.error("请先登录")
-  }
-}
+// const star = async () => {
+//   if (loginStatus.value) {
+//     const req = {
+//       user_id: user.value.user_id,
+//       article_id: data.article._id,
+//     }
+//     const res = await addStarApi(req)
+//     if (res.status === 200 && res.ok) {
+//       ElMessage.success("收藏成功")
+//       isStar.value = true
+//     }
+//   } else {
+//     store.commit("setIsShowLogin", true)
+//     ElMessage.error("请先登录")
+//   }
+// }
 // 取消收藏
-const delStar = async () => {
-  const res = await cancelStarApi(data.article._id)
-  if (res.status === 200 && res.ok) {
-    ElMessage.success("取消收藏成功")
-    isStar.value = false
-  }
-}
+// const delStar = async () => {
+//   const res = await cancelStarApi(data.article._id)
+//   if (res.status === 200 && res.ok) {
+//     ElMessage.success("取消收藏成功")
+//     isStar.value = false
+//   }
+// }
 const router = useRouter()
-const toCategory = (id, name) => {
+const toCategory = (id: string | number, name: string) => {
   router.push({
-    name: "CategoryDetail",
-    params: { id: id },
-    query: { name: name },
+    path: "category",
+    query: { name: name, id: id },
   })
 }
 

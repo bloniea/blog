@@ -11,8 +11,8 @@
       <div
         class="category bg-shadow"
         v-for="category in categoryData.categories"
-        :key="category._id"
-        @click="toDetail(category._id, category.cat_name)"
+        :key="category.category_id"
+        @click="toDetail(category.category_id, category.name)"
         data-aos="flip-left"
         data-aos-easing="ease-out-cubic"
         data-aos-duration="2000"
@@ -23,7 +23,7 @@
         <!-- 半透明层 -->
         <div class="opacity">
           <div class="name categoty-item-name">
-            {{ category.cat_name }}
+            {{ category.name }}
           </div>
           <div class="date">
             {{ formatDate(category.created_at) }}
@@ -32,25 +32,19 @@
       </div>
     </div>
     <Pagination
-      :pagesize="categoryData.req.pagesize"
-      :pagenum="categoryData.req.pagenum"
+      :pages="categoryData.req.pages"
+      :pageNumber="categoryData.req.pageNumber"
       :total="categoryData.total"
       @changePage="changePage"
     ></Pagination>
   </MyContainer>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import Pagination from '@/components/Pagination/index.vue'
-import MyContainer from '@/components/MyContainer/index.vue'
-import { getCurrentInstance, reactive } from '@vue/runtime-core'
-import { formatDate } from '@/comm/function.js'
-import Loading from '@/components/Loading/index.vue'
-import { getCategoriesApi } from '@/comm/fetch'
+<script setup lang="ts">
+import { ref } from "vue"
 const route = useRoute()
-const loading = ref(true)
+const loading = ref<boolean>(true)
+useHead({ title: "文章分类" })
 // let isChildRoute = ref(false)
 // // 判断是否存在参数id，如果存在显示该id的分类目录文章详情
 // const isId = () => {
@@ -63,36 +57,36 @@ const loading = ref(true)
 // isId()
 const router = useRouter()
 // 路由跳转至该分类id详情页
-const toDetail = (id, cat_name) => {
+const toDetail = (id: string | number, cat_name: string) => {
   router.push({
-    name: 'CategoryDetail',
-    params: { id: id },
-    query: { name: cat_name },
+    path: "/category",
+    query: { id: id, name: cat_name },
   })
 }
 
 // 获取分类列表
+
 const categoryData = reactive({
-  categories: [],
+  categories: [] as CategoryData[],
   total: 0,
   req: {
-    pagesize: 10,
-    pagenum: 1,
+    pages: 9,
+    pageNumber: 1,
   },
 })
 const getCategories = async () => {
   loading.value = true
   const res = await getCategoriesApi(categoryData.req)
-  if (res.status === 200 && res.ok) {
-    categoryData.categories = res.data.data
-    categoryData.total = res.data.total
+  if (res && res.success === 1) {
+    categoryData.categories = res.data.result as CategoryData[]
+    categoryData.total = Number(res.data.total)
     loading.value = false
   }
 }
 getCategories()
 
-const changePage = (page) => {
-  categoryData.req.pagenum = page
+const changePage = (page: number) => {
+  categoryData.req.pageNumber = page
   getCategories()
 }
 </script>

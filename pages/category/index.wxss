@@ -1,0 +1,18 @@
+@import url("../../assets/Styles/variable.styl");
+.category-detail {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.category-detail .title > .cate-name {
+  color: $baseColor;
+  font-weight: bold;
+  cursor: $my-cursor-pointer;
+}
+.category-detail .title > .cate-name .iconclose:hover {
+  color: #d25d95;
+}

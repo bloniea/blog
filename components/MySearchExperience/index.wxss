@@ -1,0 +1,17 @@
+.aa-ItemWrapper .aa-ItemContentTitle {
+  color: #000;
+  font-weight: bold;
+}
+.aa-ItemWrapper .aa-category-title {
+  color: #5e5a5a;
+  display: flex;
+  justify-content: end;
+  font-style: italic;
+}
+.aa-ItemWrapper .aa-ItemContent {
+  color: #474343;
+}
+.aa-ItemWrapper .aa-ItemContent mark {
+  display: contents;
+  color: #f00;
+}

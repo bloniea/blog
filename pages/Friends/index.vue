@@ -35,24 +35,27 @@
 </template>
 
 <script setup>
-import MyContainer from '@/components/MyContainer/index.vue'
-import { getCurrentInstance, reactive, ref } from 'vue'
-import Loading from '@/components/Loading/index.vue'
-import config from '@/config'
-import { getFriendsApi } from '@/comm/fetch'
-const { proxy } = getCurrentInstance()
+useHead({ title: "友链详情" })
 const friends = reactive({
-  list: [],
+  list: [
+    {
+      url: "https://bloniea.com/",
+      img_url:
+        "https://images.bloniea.com/images/1c578576f3febd248c95cf42d2c90e84_7938769883542524513_1711287074118_960.webp",
+      title: "blog",
+      avatar: "https://images.bloniea.com/images1/77265017_p0.jpg",
+    },
+  ],
 })
 const loading = ref(false)
-const getFriends = (async () => {
+const getFriends = async () => {
   loading.value = true
   const res = await getFriendsApi()
   if (res.status === 200 && res.ok) {
     friends.list = res.data.data
     loading.value = false
   }
-})()
+}
 
 const to = (url) => {
   window.open(url)

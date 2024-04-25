@@ -2,15 +2,20 @@
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@element-plus/nuxt"],
+  modules: ["@element-plus/nuxt", "@nuxtjs/sitemap"],
   css: ["~/assets/Styles/base.styl", "~/assets/Styles/iconfont.styl"],
-  app: {},
+
+  app: {
+    head: {
+      // script: [
+      // ],
+    },
+  },
   vite: {
     css: {
       preprocessorOptions: {
         stylus: {
           imports: [process.cwd() + "/assets/Styles/variable.styl"],
-          // additionalData: '@import "@/assets/Styles/variable.styl";',
         },
       },
     },
@@ -19,9 +24,19 @@ export default defineNuxtConfig({
     devProxy: {
       "/api": {
         target: "https://blog.api.bloniea.com/open/v1/",
-        // target: "http://localhost:3001/v1/",
         changeOrigin: true,
       },
     },
+  },
+  site: {
+    url: "https://bloniea.com",
+    name: "可愛くなりたいbloniea",
+    description: "Welcome to my awesome site!",
+    defaultLocale: "en", // not needed if you have @nuxtjs/i18n installed
+    cacheTime: 1000 * 60 * 15,
+  },
+  sitemap: {
+    sources: ["/api/sitemap"],
+    excludeAppSources: true,
   },
 })

@@ -7,76 +7,90 @@
           <el-avatar :size="140" :src="config.avatar"></el-avatar>
         </div>
         <div class="info">
-          <div class="info-list" v-for="title in config.aboutTitles" :key="title">
+          <div
+            class="info-list"
+            v-for="title in config.aboutTitles"
+            :key="title.title"
+          >
             <i class="iconfont iconshandian"></i>
             <span v-html="title.title"></span>
           </div>
         </div>
       </div>
       <div class="contact">
-        <el-avatar class="contact-list" v-for="contact in config.contacts" :key="contact" :src="contact.img_url"
-          @click="toContact(contact.url)">
+        <el-avatar
+          class="contact-list"
+          v-for="contact in config.contacts"
+          :key="contact.url"
+          :src="contact.img_url"
+          @click="toContact(contact.url)"
+        >
           <img :src="config.avatar_error" />
         </el-avatar>
       </div>
     </MyContainer>
 
-    <MyContainer v-for="item in article.list" :key="item._id">
+    <!-- <MyContainer v-for="item in article.list" :key="item._id">
       <div class="title shadow">{{ item.title }}</div>
       <div class="content">
         <MdToHtml :html="item.content"></MdToHtml>
       </div>
-    </MyContainer>
-    <Pagination :pagesize="article.reqData.pagesize" :pagenum="article.reqData.pagenum" :total="article.total"
-      @changePage="changePage"></Pagination>
+    </MyContainer> -->
+    <!-- <Pagination
+      :pagesize="article.reqData.pagesize"
+      :pagenum="article.reqData.pagenum"
+      :total="article.total"
+      @changePage="changePage"
+    ></Pagination> -->
   </div>
 </template>
 
-<script setup>
-import MyContainer from '@/components/MyContainer/index.vue'
-import config from '@/config'
-import { reactive, ref } from '@vue/reactivity'
-import { getAboutArticles } from '@/comm/fetch'
-import MdToHtml from '@/components/MdToHtml/index.vue'
-import Pagination from '@/components/Pagination/index.vue'
-
-import { useRoute, useRouter } from 'vue-router'
-import { isNumber } from '@vueuse/core'
+<script setup lang="ts">
 const router = useRouter()
 const route = useRoute()
-const loading = ref(true)
+useHead({ title: "关于我" })
+const loading = ref<boolean>(true)
+;(function () {
+  let timerId: NodeJS.Timeout
+  let timerHandle: number
 
-const article = reactive({
-  list: [],
-  total: 0,
-  reqData: {
-    pagenum: 1,
-    pagesize: 3,
-  },
-})
-
-const getArticles = async () => {
-  const res = await getAboutArticles(article.reqData)
-  if (res.status == 200 && res.ok) {
-    article.list = res.data.data
-    if (!res.data.data.length) {
-      router.push({ name: 'About', query: { page: 1 } })
-    }
-    article.total = res.data.total
+  timerId = setTimeout(() => {
+    clearTimeout(timerHandle)
     loading.value = false
-  }
-}
-getArticles()
+  }, 200)
+  timerHandle = timerId as unknown as number
+})()
+// const article = reactive({
+//   list: [],
+//   total: 0,
+//   reqData: {
+//     pagenum: 1,
+//     pagesize: 3,
+//   },
+// })
+
+// const getArticles = async () => {
+//   const res = await getAboutArticles(article.reqData)
+//   if (res.status == 200 && res.ok) {
+//     article.list = res.data.data
+//     if (!res.data.data.length) {
+//       router.push({ name: 'About', query: { page: 1 } })
+//     }
+//     article.total = res.data.total
+//     loading.value = false
+//   }
+// }
+// getArticles()
 // 打开作者联系页面
-const toContact = (url) => {
+const toContact = (url: string) => {
   window.open(url)
 }
 
-const changePage = (page) => {
-  article.reqData.pagenum = page
-  loading.value = true
-  getArticles()
-}
+// const changePage = (page:number) => {
+//   article.reqData.pagenum = page
+//   loading.value = true
+//   getArticles()
+// }
 </script>
 
 <style lang="stylus" scoped>

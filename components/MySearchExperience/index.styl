@@ -1,0 +1,53 @@
+@import '../../assets/Styles/variable.styl'
+
+.aa-ItemWrapper
+    .aa-ItemContentTitle
+        color #000
+        font-weight bold
+
+    .aa-category-title
+        color #5e5a5a
+        display flex
+        justify-content end
+        font-style italic
+
+    .aa-ItemContent
+        color #474343
+
+    .aa-ItemContent mark
+        display contents
+        color $baseColor
+
+.aa-Item[aria-selected=true]
+    background #761c8f
+    color #fff
+
+    .aa-ItemContentTitle
+        color #fff
+
+    .aa-ItemContent
+        color #e2e0e0
+
+    .aa-category-title
+        color #e2e0e0
+
+#autocomplete
+    align-items center
+    display flex
+    height 100%
+
+    button.aa-DetachedSearchButton
+        background transparent
+        border none
+
+    .aa-DetachedSearchButtonQuery
+        display none
+
+    .aa-DetachedSearchButtonIcon
+        cursor $my-cursor-pointer
+
+svg.aa-SubmitIcon
+    color $baseColor
+
+.aa-Form:focus-within
+    border-color $baseColor

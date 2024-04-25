@@ -13,7 +13,7 @@
           <li
             v-for="menu in menus"
             :key="menu.id"
-            @click="toPage(menu.name)"
+            @click="toPage(menu.path)"
             :class="menu.class"
           >
             <i :class="'iconfont' + ' ' + menu.icon"></i>{{ menu.label }}
@@ -26,7 +26,7 @@
           <li
             v-for="menu in menus"
             :key="menu.id"
-            @click.stop="toPage(menu.name)"
+            @click.stop="toPage(menu.path)"
             :class="menu.class"
           >
             <i :class="'iconfont' + ' ' + menu.icon"></i>{{ menu.label }}
@@ -35,16 +35,16 @@
       </div>
       <!-- 菜单显示按钮和搜索按钮 -->
       <div class="option">
-        <div class="search">
+        <!-- <div class="search">
           <el-input
             v-model="keyword"
             placeholder="search"
             :suffix-icon="Search"
             @keyup.enter="getArticles"
           />
-        </div>
-
-        <div class="user">
+        </div> -->
+        <MySearchExperience></MySearchExperience>
+        <!-- <div class="user">
           <el-dropdown>
             <el-avatar
               :size="40"
@@ -77,7 +77,7 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-        </div>
+        </div> -->
         <div class="app-nav" v-if="navShow">
           <i class="iconfont iconcaidan" @click.stop="shouNav"></i>
         </div>
@@ -162,27 +162,32 @@ const keyword = ref<string>("")
 const navShow = ref<boolean>(true)
 
 const menus = reactive([
-  { id: 1, label: "主页", name: "Home", icon: "iconhome", class: "home" },
-  { id: 2, label: "归档", name: "Archive", icon: "iconapple" },
+  { id: 1, label: "主页", path: "/home", icon: "iconhome", class: "home" },
+  { id: 2, label: "归档", path: "/archive", icon: "iconapple" },
   {
     id: 3,
     label: "分类",
-    name: "Categories",
+    path: "/categories",
     icon: "icon14",
     class: "categories",
   },
-  { id: 4, label: "动漫", name: "Anime", icon: "iconpen", class: "anime" },
-  { id: 5, label: "友链", name: "Friends", icon: "iconlove", class: "friends" },
-  { id: 6, label: "工具", name: "Tool", icon: "iconguanyu", class: "tool" },
-  { id: 6, label: "关于", name: "About", icon: "iconguanyu", class: "about" },
+  {
+    id: 5,
+    label: "友链",
+    path: "/friends",
+    icon: "iconlove",
+    class: "friends",
+  },
+  { id: 6, label: "工具", path: "/tool", icon: "iconguanyu", class: "tool" },
+  { id: 6, label: "关于", path: "/about", icon: "iconguanyu", class: "about" },
 ])
 const navNameShow = ref<boolean>(false)
 
 // 路由跳转
 const router = useRouter()
-const toPage = (name: string) => {
+const toPage = (path: string) => {
   navNameShow.value = !navNameShow.value
-  router.push({ name: name })
+  router.push({ path: path })
 }
 // app 端显示隐藏菜单
 const shouNav = () => {

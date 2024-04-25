@@ -6,11 +6,7 @@
   ></div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { reactive } from '@vue/reactivity'
-import { onMounted, onUnmounted } from '@vue/runtime-core'
-
+<script setup lang="ts">
 const data = reactive({
   // back-top
   defaultBackTopHeight: 900,
@@ -29,10 +25,10 @@ const scroll = () => {
   }
 }
 onMounted(() => {
-  document.addEventListener('scroll', scroll)
+  document.addEventListener("scroll", scroll)
 })
 onUnmounted(() => {
-  document.removeEventListener('scroll', scroll)
+  document.removeEventListener("scroll", scroll)
 })
 // 回到顶部方法
 const toTop = () => {

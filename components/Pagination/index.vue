@@ -61,6 +61,8 @@ const next = () => {
   display flex
   justify-content center
   padding 20px 0
+  position relative
+  z-index 0
   div {
     padding 10px 15px
     // margin 10px

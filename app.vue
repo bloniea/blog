@@ -1,10 +1,5 @@
-<script steup>
-import TopProgress from "@/components/TopProgress/index.vue"
-import Nav from "@/components/Nav/index.vue"
-import BackToTop from "@/components/BackToTop/index.vue"
-import Copyright from "@/components/Copyright/index.vue"
-</script>
 <template>
+  <div id="bg" :style="`background-image:url(${imgUrl});`"></div>
   <div class="container">
     <!--  顶部进度条 -->
     <TopProgress />
@@ -20,6 +15,12 @@ import Copyright from "@/components/Copyright/index.vue"
     <Copyright></Copyright>
   </div>
 </template>
+
+<script setup lang="ts">
+const imgUrl: string =
+  "https://images.bloniea.com/images/1c578576f3febd248c95cf42d2c90e84_7938769883542524513_1711287074118_960.webp"
+</script>
+
 <style lang="stylus" scoped>
 .container {
   display flex

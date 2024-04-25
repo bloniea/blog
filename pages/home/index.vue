@@ -175,19 +175,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "@vue/reactivity"
-import { ref } from "vue"
-import { getCurrentInstance, onMounted } from "@vue/runtime-core"
-import { marked } from "marked"
-// import Loading from "@/components/Loading/index.vue"
-// import Pagination from "@/components/Pagination/index.vue"
-import { useRoute, useRouter } from "vue-router"
-// import MdToHtml from "@/components/MdToHtml/index.vue"
-// import { getArticlesApi } from "@/comm/fetch"
-const { proxy } = getCurrentInstance()
-
 const loading = ref<boolean>(true)
 
+useHead({ title: "可愛くなりたいbloniea" })
 // 获取文章列表
 const articlesData = reactive({
   articles: {} as any,
@@ -212,7 +202,6 @@ getArticles()
 
 // 页码改变的方法
 const changePage = (page: number) => {
-  console.log(page)
   articlesData.req.pageNumber = page
   getArticles()
 }
@@ -224,11 +213,10 @@ const toArticleDetail = (id: number) => {
 }
 
 // 跳转到文章分类详情
-const toCategory = (id, name) => {
+const toCategory = (id: number, name: string) => {
   router.push({
-    name: "CategoryDetail",
-    params: { id: id },
-    query: { name: name },
+    name: "category",
+    query: { id: id, name: name },
   })
 }
 </script>

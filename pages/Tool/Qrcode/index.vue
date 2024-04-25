@@ -1,149 +1,155 @@
 <template>
-  <div class="qrcode">
-    <h3><i class="iconfont iconshandian"></i>在线生成二维码</h3>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">内容</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-input v-model="qrData.url"></el-input>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">图片地址</div>
-      </el-col>
-      <el-col :span="20">
-        <!-- <div class="grid-content">
+  <my-container>
+    <div class="qrcode">
+      <h3><i class="iconfont iconshandian"></i>在线生成二维码</h3>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">内容</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-input v-model="qrData.url"></el-input>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">图片地址</div>
+        </el-col>
+        <el-col :span="20">
+          <!-- <div class="grid-content">
           <el-input v-model="qrData.img_url"></el-input>
         </div> -->
-        <el-tabs v-model="qrData.activeName" type="card" @tab-click="tabClick">
-          <el-tab-pane label="url" name="url">
-            <el-input v-model="qrData.imgUrl"></el-input>
-          </el-tab-pane>
-          <el-tab-pane label="图片上传" name="upload">
-            <div class="image-box">
-              <el-icon>
-                <plus />
-              </el-icon>
-              <el-image
-                v-if="qrData.base64Url"
-                :src="qrData.base64Url"
-                class="upload_img"
-                fit="cover"
-              ></el-image>
-              <input type="file" class="upload-img" @change="uploadImage" />
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">外边距</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-input
-            type="number"
-            v-model="qrData.margin"
-            class="margin"
-          ></el-input>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">宽度</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-input
-            type="number"
-            v-model="qrData.width"
-            class="margin"
-          ></el-input>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">边框色</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-color-picker v-model="qrData.borderColor" />
-        </div>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">边框宽度</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-input class="borderW" type="number" v-model="qrData.borderW" />
-        </div>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">前景色</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-color-picker v-model="qrData.dark" />
-        </div>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="4">
-        <div class="grid-content">背景色</div>
-      </el-col>
-      <el-col :span="20">
-        <div class="grid-content">
-          <el-color-picker v-model="qrData.light" />
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="4">
-        <div class="grid-content">
-          <el-button @click="createQrcode">生成</el-button>
-        </div>
-      </el-col>
-    </el-row>
-    <div class="qrcode-image">
-      <canvas ref="qrcode"></canvas>
+          <el-tabs
+            v-model="qrData.activeName"
+            type="card"
+            @tab-click="tabClick"
+          >
+            <el-tab-pane label="url" name="url">
+              <el-input v-model="qrData.imgUrl"></el-input>
+            </el-tab-pane>
+            <el-tab-pane label="图片上传" name="upload">
+              <div class="image-box">
+                <el-icon>
+                  <plus />
+                </el-icon>
+                <el-image
+                  v-if="qrData.base64Url"
+                  :src="qrData.base64Url"
+                  class="upload_img"
+                  fit="cover"
+                ></el-image>
+                <input type="file" class="upload-img" @change="uploadImage" />
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">外边距</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-input
+              type="number"
+              v-model="qrData.margin"
+              class="margin"
+            ></el-input>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">宽度</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-input
+              type="number"
+              v-model="qrData.width"
+              class="margin"
+            ></el-input>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">边框色</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-color-picker v-model="qrData.borderColor" />
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">边框宽度</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-input class="borderW" type="number" v-model="qrData.borderW" />
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">前景色</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-color-picker v-model="qrData.dark" />
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">背景色</div>
+        </el-col>
+        <el-col :span="20">
+          <div class="grid-content">
+            <el-color-picker v-model="qrData.light" />
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="4">
+          <div class="grid-content">
+            <el-button @click="createQrcode">生成</el-button>
+          </div>
+        </el-col>
+      </el-row>
+      <div class="qrcode-image">
+        <canvas ref="qrcode"></canvas>
+      </div>
+      <div class="btn" v-if="qrData.qrcodeShow">
+        <el-button @click="saveQrcode">保存二维码</el-button>
+      </div>
     </div>
-    <div class="btn" v-if="qrData.qrcodeShow">
-      <el-button @click="saveQrcode">保存二维码</el-button>
-    </div>
-  </div>
+  </my-container>
 </template>
 
-<script setup>
-import { getCurrentInstance, reactive, onMounted, watch } from 'vue'
-import { Plus } from '@element-plus/icons-vue'
+<script setup lang="ts">
+import { getCurrentInstance, reactive, onMounted, watch } from "vue"
+import { Plus } from "@element-plus/icons-vue"
 // import { reactive } from "@vue/reactivity";
-import QRCode from 'qrcode'
-
+import QRCode from "qrcode"
+useHead({ title: "在线生成二维码" })
 const { proxy } = getCurrentInstance()
 const qrData = reactive({
-  dark: '#000000',
-  light: '#ffffff',
+  dark: "#000000",
+  light: "#ffffff",
   margin: 3,
-  url: 'https://bloniea.xyz/',
+  url: "https://bloniea.xyz/",
   width: 400,
-  imgUrl: '',
-  img_url: '',
-  base64Url: '',
-  borderColor: '#ffffff',
+  imgUrl: "",
+  img_url: "",
+  base64Url: "",
+  borderColor: "#ffffff",
   borderW: 1,
-  activeName: 'url',
-  file: '',
+  activeName: "url",
+  file: "",
   qrcodeShow: false,
 })
 qrData.img_url = qrData.imgUrl
@@ -151,8 +157,8 @@ qrData.img_url = qrData.imgUrl
 const createQrcode = () => {
   const elemt = proxy.$refs.qrcode
   var opts = {
-    errorCorrectionLevel: 'H',
-    type: 'image/png',
+    errorCorrectionLevel: "H",
+    type: "image/png",
     quality: 0.3,
     margin: qrData.margin,
     color: {
@@ -162,12 +168,12 @@ const createQrcode = () => {
     width: qrData.width <= 100 ? 100 : qrData.width,
   }
 
-  QRCode.toDataURL(elemt, qrData.url, opts, function (err, url) {
+  QRCode.toDataURL(elemt, qrData.url, opts, function (err: any, url: any) {
     if (err) throw err
     qrData.qrcodeShow = true
     if (qrData.img_url) {
-      const ctx = elemt.getContext('2d')
-      const img = document.createElement('img')
+      const ctx = elemt.getContext("2d")
+      const img = document.createElement("img")
       img.src = qrData.img_url
       img.onload = function () {
         qrData.width = qrData.width <= 100 ? 100 : qrData.width
@@ -188,23 +194,23 @@ const createQrcode = () => {
   })
 }
 
-const tabClick = (tab, event) => {
-  if (tab.props.name == 'url') {
+const tabClick = (tab: any) => {
+  if (tab.props.name == "url") {
     qrData.img_url = qrData.imgUrl
   }
-  if (tab.props.name == 'upload') {
+  if (tab.props.name == "upload") {
     qrData.img_url = qrData.base64Url
   }
 }
 // 图片预览
-const uploadImage = (e) => {
+const uploadImage = (e: any) => {
   // console.log(e.target.value)
   const file = e.target.files[0]
   if (/image/.test(file.type)) {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => {
-      qrData.base64Url = reader.result
+      qrData.base64Url = reader.result as string
       // console.log(reader.result)
       e.target.value = null
     }
@@ -212,10 +218,9 @@ const uploadImage = (e) => {
 }
 // 保存二维码
 const saveQrcode = () => {
-  console.log(proxy.$refs.qrcode)
-  const url = proxy.$refs.qrcode.toDataURL('image/png')
-  const oA = document.createElement('a')
-  oA.download = '二维码'
+  const url = proxy.$refs.qrcode.toDataURL("image/png")
+  const oA = document.createElement("a")
+  oA.download = "二维码"
   oA.href = url
   document.body.appendChild(oA)
   oA.click()
@@ -269,7 +274,7 @@ watch(
         top 0
         opacity 0
         cursor $my-cursor-pointer
-        >>> input {
+        :deep(input)  {
           width 200px
           height 200px
         }
