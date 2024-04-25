@@ -39,7 +39,7 @@ const data = reactive({
   req: {
     pages: 10,
     pageNumber: 1,
-    category_id: null as null | number,
+    category_id: route.query.id as null | number,
   },
   total: 0,
 })
@@ -47,17 +47,25 @@ const data = reactive({
 const getCategoryDetail = async () => {
   loading.value = true
   data.cat_name = route.query.name as string
-  data.req.category_id = route.query.id as null | number
   const res = await getArticlesApi(data.req)
+  if (res && res.statusCode === 404) return router.push("/404")
   if (res && res.success === 1) {
     data.articles = res.data.result
     data.total = Number(res.data.total)
     loading.value = false
-  } else {
-    // router.push("/404")
   }
 }
-getCategoryDetail()
+
+const init = () => {
+  if (!data.req.category_id || isNaN(Number(data.req.category_id)))
+    return router.push("/404")
+  getCategoryDetail()
+}
+
+onMounted(() => {
+  init()
+})
+
 // 页码改变
 const changePage = (page: number) => {
   data.req.pageNumber = page
@@ -67,6 +75,13 @@ const changePage = (page: number) => {
 const toArticleDetail = (id: number) => {
   router.push({ path: "/article", query: { id: id } })
 }
+
+watch(
+  () => route.query.id,
+  () => {
+    init()
+  }
+)
 </script>
 
 <style lang="styl" scoped>

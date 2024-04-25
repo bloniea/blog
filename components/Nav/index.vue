@@ -81,82 +81,13 @@
         <div class="app-nav" v-if="navShow">
           <i class="iconfont iconcaidan" @click.stop="shouNav"></i>
         </div>
-        <!-- <i
-            class="iconfont iconcustom-user"
-            @click="loginDialogVisible=true"
-          ></i> -->
-
-        <!-- 登录表单 -->
-        <div class="login-input">
-          <div class="login-pc">
-            <el-dialog
-              v-model="loginDialogVisible"
-              title="请登录"
-              width="30%"
-              center
-              custom-class="login"
-              @close="closeLogin"
-            >
-              <div class="login-btns">
-                <div class="gitee">
-                  <el-button @click="gitee_github('gitee')">gitee</el-button>
-                </div>
-                <div class="github">
-                  <el-button @click="gitee_github('github')">github</el-button>
-                </div>
-              </div>
-              <template #footer>
-                <span class="login-footer">
-                  <el-button @click="closeLogin">Cancel</el-button>
-                </span>
-              </template>
-            </el-dialog>
-          </div>
-          <div class="login-app">
-            <el-dialog
-              v-model="loginDialogVisible"
-              title="请登录"
-              width="70%"
-              center
-              custom-class="login"
-              @close="closeLogin"
-            >
-              <div class="login-btns">
-                <div class="gitee">
-                  <el-button @click="gitee_github('gitee')">gitee</el-button>
-                </div>
-                <div class="github">
-                  <el-button @click="gitee_github('github')">github</el-button>
-                </div>
-              </div>
-              <template #footer>
-                <span class="login-footer">
-                  <el-button @click="closeLogin">Cancel</el-button>
-                </span>
-              </template>
-            </el-dialog>
-          </div>
-        </div>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  getCurrentInstance,
-  onMounted,
-  reactive,
-  ref,
-  watch,
-} from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { Search } from "@element-plus/icons-vue"
-// import { formatparams, getVal, getParams, toAuth } from "@/comm/function.js"
-// import { useStore } from "vuex"
-// import { ElLoading } from "element-plus"
-// import { getUserApi } from "@/comm/oauthFetch"
 
 const keyword = ref<string>("")
 const navShow = ref<boolean>(true)
@@ -224,100 +155,6 @@ watch(
     }
   }
 )
-const route = useRoute()
-const getArticles = () => {
-  //   const name = ref("")
-  //   if (localStorage.getItem("searchName")) {
-  //     name.value =
-  //       route.name != "SearchDetail"
-  //         ? route.name
-  //         : localStorage.getItem("searchName")
-  //   } else {
-  //     name.value = route.name != "SearchDetail" ? route.name : "Home"
-  //   }
-  //   localStorage.setItem("searchName", name.value)
-  //   router.push({ name: "ReloadSearch", query: { keyword: keyword.value } })
-}
-
-// const store = new useStore()
-// 登录
-const loginDialogVisible = false
-// const loginDialogVisible = computed({
-// get() {
-//   return store.state.isShowLogin
-// },
-// set(v) {
-//   store.commit("setIsShowLogin", v)
-// },
-// })
-
-const gitee_github = (type: string) => {
-  // 进入授权页面
-  // toAuth(type)
-}
-const closeLogin = () => {
-  // store.commit("setIsShowLogin", false)
-}
-// 授权后返回执行,保存code并刷新当前页面使url不显示code值
-const saveCode = () => {
-  const url = window.location.href
-  const code = getVal(url, "code=")
-  if (code) {
-    localStorage.setItem("code", code)
-    router.push({ name: "Refresh" })
-  }
-}
-// element 的需要v-loading的dom
-const avatarLoad = ref(null)
-// 获取token
-// const oauth = async () => {
-//   const code = localStorage.getItem("code")
-//   if (code && code != null) {
-//     const params = getParams(code)
-//     const avatar = ElLoading.service({
-//       target: avatarLoad.value.$el,
-//       lock: true,
-//       background: "rgba(0, 0, 0, 0.7)",
-//     })
-//     // const res = await getUserApi(params)
-//     if (res.status === 200 && res.ok) {
-//       avatar.close()
-//       localStorage.removeItem("code")
-//       localStorage.setItem("front_token", res.data.token)
-//       localStorage.setItem("front_refresh_token", res.data.refresh_token)
-//       localStorage.setItem("front_userinfo", JSON.stringify(res.data.data))
-//       // store.commit("setStatus", true)
-//       // store.commit("setUserinfo", res.data.data)
-//     } else {
-//       avatar.close()
-//       localStorage.removeItem("code")
-//       ElMessage.error("登录超时,请刷新后再试")
-//     }
-//   }
-// }
-// onMounted(() => oauth())
-
-// 显示登录表单
-const isShowLoginDialog = () => {
-  //   store.commit("setIsShowLogin", true)
-  //   // loginDialogVisible.value = !loginDialogVisible.value
-}
-const logout = () => {
-  //   localStorage.removeItem("front_token")
-  //   localStorage.removeItem("front_refresh_token")
-  //   localStorage.removeItem("front_userinfo")
-  //   store.commit("setStatus", false)
-}
-
-// 获取登录状态
-// const loginStatus = computed(() => store.state.status)
-const loginStatus: boolean = false
-// 获取用户信息
-// const userinfo = computed(() => store.state.userinfo)
-const userinfo = {} as any
-const toMe = () => {
-  router.push({ name: "Me" })
-}
 </script>
 
 <style lang="stylus" scoped>

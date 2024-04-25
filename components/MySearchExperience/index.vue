@@ -8,7 +8,7 @@
 import { autocomplete, getAlgoliaResults } from "@algolia/autocomplete-js"
 import algoliasearch from "algoliasearch"
 import "@algolia/autocomplete-theme-classic"
-
+const router = useRouter()
 onMounted(() => {
   const searchClient = algoliasearch(config.algoliaApid, config.algoliaApiKey)
   autocomplete({
@@ -16,9 +16,8 @@ onMounted(() => {
     placeholder: "",
     insights: true,
     detachedMediaQuery: "",
-    defaultActiveItemId: 0,
-    debug: false,
-
+    // defaultActiveItemId: 0,
+    // debug: false,
     getSources({ query }) {
       return [
         {
@@ -38,12 +37,17 @@ onMounted(() => {
               ],
             })
           },
-          getItemUrl({ item }) {
-            return item.url
+          // getItemUrl({ item }) {
+          //   return item.url
+          // },
+          onSelect: ({ item }) => {
+            const url: string = item.url as string
+            console.log(url)
+            router.push(url)
           },
           templates: {
             item({ item, components, html }) {
-              return html`<div class="aa-ItemWrapper">
+              return html`<a class="aa-ItemWrapper">
                 <div class="aa-ItemContent">
                   <div class="aa-ItemContentBody">
                     <div class="aa-ItemContentTitle">
@@ -79,7 +83,7 @@ onMounted(() => {
                     </button>
                   </div>
                 </div>
-              </div>`
+              </a>`
             },
           },
         },

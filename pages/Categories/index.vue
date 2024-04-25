@@ -83,7 +83,9 @@ const getCategories = async () => {
     loading.value = false
   }
 }
-getCategories()
+onMounted(() => {
+  getCategories()
+})
 
 const changePage = (page: number) => {
   categoryData.req.pageNumber = page

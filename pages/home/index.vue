@@ -177,7 +177,7 @@
 <script setup lang="ts">
 const loading = ref<boolean>(true)
 
-useHead({ title: "可愛くなりたいbloniea" })
+useHead({ title: "bloniea|可愛くなりたい" })
 // 获取文章列表
 const articlesData = reactive({
   articles: {} as any,
@@ -198,8 +198,9 @@ const getArticles = async () => {
   }
 }
 
-getArticles()
-
+onMounted(() => {
+  getArticles()
+})
 // 页码改变的方法
 const changePage = (page: number) => {
   articlesData.req.pageNumber = page

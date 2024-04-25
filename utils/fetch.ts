@@ -1,8 +1,10 @@
-const api = "/api"
 import QS from "qs"
+// import fetch from "node-fetch"
+const api = "/api"
 export type DataJson = {
   success: number
   message: string
+  statusCode: number
   data?: any
 }
 export const fetchApi = async (url: string, options: any = {}) => {
@@ -16,9 +18,14 @@ export const fetchApi = async (url: string, options: any = {}) => {
         "Content-Type": "application/json;charset=utf-8",
       },
     })
+    if (data.status === 500) {
+      ElMessage({ message: "超时了,刷新一下看看吧", type: "error" })
+    }
     const dataJson: DataJson = await data.json()
+    dataJson.statusCode = data.status
     return dataJson
   } catch (error) {
+    ElMessage({ message: "超时了,刷新一下看看吧", type: "error" })
     console.log(error)
   }
 }
@@ -51,26 +58,8 @@ export const getArticlesApi = async (params: {
   return await fetchApi(url, { params: params })
 }
 
-// 获取评论
-export const getCommentsApi = async (id: string | number, params: any) => {
-  const url = api + "/comments/" + id
-  return await fetchApi(url, { params: params })
-}
-
 // 获取关于我的文章
 export const getAboutArticles = async (params: any) => {
   const url = api + "/aboutArticles"
-  return await fetchApi(url, { params: params })
-}
-
-// 获取所有动漫
-export const getAboutAnimesApi = async (params: any) => {
-  const url = api + "/animes"
-  return await fetchApi(url, { params: params })
-}
-
-// 获取动漫信息
-export const getAnimeApi = async (id: string | number, params: any) => {
-  const url = api + "/anime/" + id
   return await fetchApi(url, { params: params })
 }

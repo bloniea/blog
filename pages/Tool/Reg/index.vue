@@ -100,7 +100,7 @@
   </my-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 useHead({ title: "正则表达式在线测试" })
 const str = ref("")
 const reg = ref("")

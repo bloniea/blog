@@ -44,7 +44,9 @@ const getArticles = async () => {
     article.total = Number(res.data.total)
   }
 }
-getArticles()
+onMounted(() => {
+  getArticles()
+})
 
 const toArticleDetail = (id: number) => {
   router.push({ path: "/article", query: { id: id } })
