@@ -1,5 +1,5 @@
 <template>
-  <div id="bg" :style="`background-image:url(${imgUrl});`"></div>
+  <div id="bg" :style="`background-image:url(${config.bg_url});`"></div>
   <div class="container">
     <!--  顶部进度条 -->
     <TopProgress />
@@ -17,8 +17,7 @@
 </template>
 
 <script setup lang="ts">
-const imgUrl: string =
-  "https://images.bloniea.com/images/1c578576f3febd248c95cf42d2c90e84_7938769883542524513_1711287074118_960.webp"
+import { config } from "./utils/config"
 </script>
 
 <style lang="stylus" scoped>
