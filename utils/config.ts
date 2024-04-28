@@ -8,7 +8,8 @@ export const config = {
   avatar_default: "https://images.bloniea.com/images1/default_avatar.png",
   img_404: "https://images.bloniea.com/images1/404.jpg",
   logo_url: "https://images.bloniea.com/images1/logo.png",
-  bg_url: "https://images.bloniea.com//images/1c578576f3febd248.webp.webp",
+  bg_url:
+    "https://images.bloniea.com/images/1c578576f3febd248_1714288579272_108.webp",
   aboutTitles: [
     {
       title:
