@@ -2,7 +2,7 @@ export const config = {
   loading:
     "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/loading_1718135482159_496.gif",
   defaultImgUrl:
-    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/yuri/%E7%A5%9E%E5%AD%90_%E5%BD%B1_1718137956108_590.png",
+    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/yuri/defaultImgUrl_1718160136713_751.png",
   avatar:
     "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/avatar_1718135160193_479.png",
   url: "https://bloniea.com/",
@@ -14,9 +14,9 @@ export const config = {
   img_404:
     "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/img_404_1718136871531_447.png",
   logo_url:
-    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/logo_1718136937898_105.png",
+    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/logo_1718159992107_691.png",
   bg_url:
-    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/bg_1718137885497_243.webp",
+    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/bg_1718159027806_59.webp",
   aboutTitles: [
     {
       title:
