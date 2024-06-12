@@ -2,7 +2,7 @@ export const config = {
   loading:
     "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/loading_1718135482159_496.gif",
   defaultImgUrl:
-    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/yuri/defaultImgUrl_1718160136713_751.png",
+    "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/defaultImgUrl_1718160637809_740.png",
   avatar:
     "https://cdn.jsdelivr.net/gh/bloniea/images-bed@main/images/web/avatar_1718135160193_479.png",
   url: "https://bloniea.com/",
