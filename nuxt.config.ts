@@ -23,13 +23,13 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       "/api": {
-        target: "https://blog.api.bloniea.com/open/v1/",
+        target: "https://blog.api.bloniea.my/open/v1/",
         changeOrigin: true,
       },
     },
   },
   site: {
-    url: "https://bloniea.com",
+    url: "https://bloniea.my",
     name: "可愛くなりたいbloniea",
     description: "Welcome to my awesome site!",
     defaultLocale: "en", // not needed if you have @nuxtjs/i18n installed

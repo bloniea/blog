@@ -13,6 +13,7 @@
     "@algolia/autocomplete-js": "^1.17.0",
     "@algolia/autocomplete-theme-classic": "^1.17.0",
     "@algolia/requester-fetch": "^4.23.3",
+    "algoliasearch": "^5.25.0",
     "element-plus": "^2.7.1",
     "marked": "^12.0.2",
     "nuxt": "^3.11.2",
@@ -22,12 +23,13 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@element-plus/nuxt": "^1.0.9",
-    "@types/qs": "^6.9.15",
-    "stylus": "^0.63.0",
-    "@nuxtjs/sitemap": "^5.1.4",
     "@element-plus/icons-vue": "^2.3.1",
+    "@element-plus/nuxt": "^1.0.9",
+    "@nuxtjs/sitemap": "^5.1.4",
+    "@types/qs": "^6.9.15",
+    "gitalk": "^1.8.0",
     "highlight.js": "^11.9.0",
-    "gitalk": "^1.8.0"
-  }
+    "stylus": "^0.63.0"
+  },
+  "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }

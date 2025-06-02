@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { autocomplete, getAlgoliaResults } from "@algolia/autocomplete-js"
-import algoliasearch from "algoliasearch"
+import { algoliasearch } from "algoliasearch"
 import "@algolia/autocomplete-theme-classic"
 const router = useRouter()
 onMounted(() => {
